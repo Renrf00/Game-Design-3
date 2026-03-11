@@ -38,7 +38,7 @@ MonoBehaviour:
   gridScaleFactor: 1
   invertMouseWheel: 0
   initialOffset: {x: 0, y: 0, z: 0}
-  twoPointFiveDMode: 0
-  centreGrid: 1
+  twoPointFiveDMode: 1
+  centreGrid: 0
   useAlternativeKeyShortcuts: 1
   hideUIObjects: 0
