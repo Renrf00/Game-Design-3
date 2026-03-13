@@ -177,14 +177,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7888007a041045944bded30fa9755d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverOnDeath: 1
   isFriendly: 1
   maxHealth: 3
-  spawnOnDeath: {fileID: 0}
-  spawnOnDeathLocation: {fileID: 0}
+  spawnOnDeath: {fileID: 9060238658701529526, guid: 72ce8ec17db1208418c43539eab27bf6, type: 3}
+  spawnOnDeathLocation: {fileID: 3291936000311108221}
   movedByDotween: []
   healthMoveDuration: 0.5
   healthSlider: {fileID: 0}
   currentHealth: 0
+  damagedMaterial: {fileID: 2100000, guid: e930fbcf647e7416fafe8a23c880fd45, type: 2}
+  blinkDuration: 0.2
 --- !u!114 &6404484836917006227
 MonoBehaviour:
   m_ObjectHideFlags: 0

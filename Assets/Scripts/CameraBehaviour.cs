@@ -15,6 +15,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (playerRB == null) return;
         // Ideal offset we want
         Vector3 newLookAheadOffset = playerRB.linearVelocity * lookAheadMult;
 

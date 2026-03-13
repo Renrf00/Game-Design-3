@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class HealthSystem : MonoBehaviour
 {
+    [SerializeField] private bool gameOverOnDeath;
     [SerializeField] private bool isFriendly;
     [SerializeField] private int maxHealth;
 
@@ -76,6 +77,12 @@ public class HealthSystem : MonoBehaviour
             // If there's an object to spawn on death, spawn it at designated position and default rotation
             Instantiate(spawnOnDeath, spawnOnDeathLocation.position, Quaternion.identity);
         }
+
+        if (gameOverOnDeath)
+        {
+            GameOver.Instance.DoGameOver();
+        }
+
         Destroy(gameObject);
     }
 

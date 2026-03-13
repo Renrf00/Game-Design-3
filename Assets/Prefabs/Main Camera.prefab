@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3f3860bb9047f4e9a2bee268fb5c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 3, z: -10}
-  lookAheadMult: 0.5
-  lookAheadInertia: 0.2
+  offset: {x: 0, y: 0.5, z: -10}
+  lookAheadMult: 0.3
+  lookAheadInertia: 0.1
   lookAheadOffsetCutoff: 0.01
   playerRB: {fileID: 0}
   oldLookAheadOffset: {x: 0, y: 0, z: 0}
