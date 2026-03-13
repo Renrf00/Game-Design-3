@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,8 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private Slider healthSlider;
 
     [SerializeField] private int currentHealth;
+    [SerializeField] private Material damagedMaterial;
+    [SerializeField] private float blinkDuration;
 
     private void Start()
     {
@@ -31,7 +34,7 @@ public class HealthSystem : MonoBehaviour
 
     private void GetHit(int pDamage)
     {
-        // THIS IS WHERE THE HIT TAKES PLACE!!! PUT ANIMATION STUFF HERE
+        StartCoroutine(DamagedBlink(blinkDuration));
         currentHealth -= pDamage;
 
         if (healthSlider != null)
@@ -42,6 +45,18 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0) Die();
     }
 
+    private IEnumerator DamagedBlink(float duration)
+    {
+        Debug.Log("damaged!!");
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        Material baseMaterial = GetComponent<MeshRenderer>().material;
+
+        meshRenderer.material = damagedMaterial;
+
+        yield return new WaitForSeconds(duration);
+
+        meshRenderer.material = baseMaterial;
+    }
     private void Die()
     {
         for (int i = 0; i < movedByDotween.Length; i++)
