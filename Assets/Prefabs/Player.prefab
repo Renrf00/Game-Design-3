@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3881332772493233070}
   - component: {fileID: 3491566781879684341}
   - component: {fileID: 8133557511140938047}
+  - component: {fileID: 797187909668162037}
+  - component: {fileID: 6404484836917006227}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -159,4 +161,48 @@ MonoBehaviour:
   jumpKey: 32
   groundTag: Untagged
   groundRaycastLength: 2
+  grounded: 0
+  groundRay: 0
+  groundCollision: 0
   snapierMovement: 0
+--- !u!114 &797187909668162037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7895536890823250914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7888007a041045944bded30fa9755d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFriendly: 1
+  maxHealth: 3
+  spawnOnDeath: {fileID: 0}
+  spawnOnDeathLocation: {fileID: 0}
+  movedByDotween: []
+  healthMoveDuration: 0.5
+  healthSlider: {fileID: 0}
+  currentHealth: 0
+--- !u!114 &6404484836917006227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7895536890823250914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb70601d8d35204b976efc90305ded3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootWithInput: 1
+  bulletPrefab: {fileID: 2198709448707241969, guid: af832b3e72e003147857323772d1283f, type: 3}
+  bulletSpawnPos: {fileID: 3291936000311108221}
+  shootButton: 102
+  shootInterval: 0
+  shootTimer: 0
+  lastXPos: 0
+  shootDirection: 0
+  fixedShootDirection: 0
