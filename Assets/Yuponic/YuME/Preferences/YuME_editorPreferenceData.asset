@@ -34,7 +34,7 @@ MonoBehaviour:
   gridColorFill: {r: 0.36, g: 0.36, b: 0.36, a: 0.78}
   gridOffset: 0.01
   gridLayerHeightScaler: 1
-  gridDimensions: {x: 40, y: 40}
+  gridDimensions: {x: 106, y: 38}
   gridScaleFactor: 1
   invertMouseWheel: 0
   initialOffset: {x: 0, y: 0, z: 0}

@@ -42,24 +42,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength))
         {
-            if (hit.collider.tag == groundTag)
-                groundRay = true;
-            else
-                groundRay = false;
+            groundRay = hit.collider.tag == groundTag;
         }
 
-        if (groundRay && groundCollision)
-            grounded = true;
-        else
-            grounded = false;
+        grounded = groundRay && groundCollision;
 
-        if (Input.GetAxis("Horizontal") != 0)
-            moveInput = true;
-        else
-            moveInput = false;
+        moveInput = Input.GetAxis("Horizontal") != 0;
 
-        if (Input.GetKeyDown(jumpKey))
-            jumpInput = true;
+        jumpInput = Input.GetKeyDown(jumpKey);
     }
 
     private void FixedUpdate()
@@ -127,16 +117,14 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == groundTag)
-        {
-            groundCollision = true;
-        }
+        groundCollision = collision.gameObject.tag == groundTag;
     }
 
     void OnCollisionExit(Collision collision)
     {
         groundCollision = false;
     }
+
     public enum PowerUp
     {
         Jump,
