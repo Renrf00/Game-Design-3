@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5;
     public float jumpMultiplier = 1;
     [SerializeField] private float jumpCooldown = 0.1f;
+    private bool canJump = true;
 
     [Header("Keys")]
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
@@ -26,9 +27,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground check")]
     [SerializeField] private float groundRaycastLength = 2;
-    private bool grounded = false;
-    private bool groundRay = false;
-    private bool groundCollision = false;
+    public bool grounded = false;
+    public bool groundRay = false;
+    public bool groundCollision = false;
 
     [Header("Extras")]
     [SerializeField] private bool snapierMovement = false;
@@ -40,25 +41,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength))
-        {
-            groundRay = hit.collider.tag == groundTag;
-        }
+        groundRay = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength) ? hit.collider.tag == groundTag : false;
 
         grounded = groundRay && groundCollision;
 
         moveInput = Input.GetAxis("Horizontal") != 0;
 
-        jumpInput = Input.GetKeyDown(jumpKey);
+        jumpInput = Input.GetKey(jumpKey);
     }
 
     private void FixedUpdate()
     {
-        if (moveInput)
+        if (moveInput && !Physics.Raycast(transform.position, new Vector3(Mathf.Round(Input.GetAxis("Horizontal")), 0, 0), 1))
             Move();
 
-        if (jumpInput && grounded)
-            Jump();
+        if (grounded && canJump && jumpInput)
+            StartCoroutine(Jump());
     }
 
     private void Move()
@@ -74,11 +72,15 @@ public class PlayerController : MonoBehaviour
                 rb.linearVelocity.y,
                 0);
     }
-    private void Jump()
+    private IEnumerator Jump()
     {
+        jumpInput = false;
+        canJump = false;
         rb.AddForce(Vector3.up * jumpSpeed * jumpMultiplier, ForceMode.Impulse);
 
-        jumpInput = false;
+        yield return new WaitForSeconds(jumpCooldown);
+
+        canJump = true;
     }
 
     public void ApplyPowerUp(PowerUp powerUp, float multilpierAmount, float cooldown)
