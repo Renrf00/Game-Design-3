@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
 
     [Header("Movement settings")]
     [SerializeField] private float moveSpeed = 4;
@@ -48,8 +48,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Create a box at [position], edge distance from center as [size] and pick a direction. Move box to that direction, and any new collisions are a [hit]. Don't [rotate] it and define [max distance]
-        groundRay = Physics.BoxCast(transform.position, Vector3.one*boxLength * .5f - Vector3.up * boxLength * .5f, Vector3.down, out RaycastHit hit, Quaternion.identity, groundRaycastLength) ? hit.collider.tag == groundTag : false;
+        groundRay = Physics.BoxCast(transform.position, Vector3.one*boxLength * .5f - Vector3.up * boxLength * .45f, Vector3.down, out RaycastHit hit, Quaternion.identity, groundRaycastLength) ? hit.collider.tag == groundTag : false;
 
+        /*if (Physics.BoxCast(transform.position, Vector3.one * boxLength * .5f - Vector3.up * boxLength * .45f, Vector3.down, out RaycastHit twohit, Quaternion.identity, groundRaycastLength))
+        {
+            Debug.Log(twohit.collider.tag);
+
+        }*/
         //groundRay = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength) ? hit.collider.tag == groundTag : false;
 
         grounded = groundRay && groundCollision;
@@ -142,6 +147,12 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void Respawn(Vector3 respawnPos)
+    {
+        rb.linearVelocity = Vector3.zero;
+        transform.position = respawnPos;
     }
 
     void OnCollisionStay(Collision collision)

@@ -80,7 +80,10 @@ public class HealthSystem : MonoBehaviour
 
         if (gameOverOnDeath)
         {
-            GameOver.Instance.DoGameOver();
+            CheckpointManager.Instance.Respawn();
+            ResetHealth();
+            //GameOver.Instance.DoGameOver();
+            return;
         }
 
         Destroy(gameObject);
@@ -97,5 +100,11 @@ public class HealthSystem : MonoBehaviour
             // Hit takes place: one of either is not friendly
             GetHit(danger.GetDamage());
         }
+    }
+
+    private void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        healthSlider.value = 1;
     }
 }
