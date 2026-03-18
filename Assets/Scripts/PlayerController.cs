@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float jumpMultiplier = 1;
     [SerializeField] private float jumpCooldown = 0.1f;
     private bool canJump = true;
+    [SerializeField] private float coyoteJumpTime;
 
     [Header("Keys")]
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
@@ -26,12 +27,17 @@ public class PlayerController : MonoBehaviour
     private bool jumpInput = false;
 
     [Header("Ground check")]
+    [Range(0f, 1f)]
+    [SerializeField] private float boxLength;
+
     [SerializeField] private float groundRaycastLength = 2;
     public bool grounded = false;
     public bool groundRay = false;
     public bool groundCollision = false;
 
     [Header("Extras")]
+    [SerializeField] private float coyoteJumpTimer;
+    [SerializeField] private bool canCoyoteJump;
     [SerializeField] private bool snapierMovement = false;
 
     private void Start()
@@ -41,7 +47,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        groundRay = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength) ? hit.collider.tag == groundTag : false;
+        // Create a box at [position], edge distance from center as [size] and pick a direction. Move box to that direction, and any new collisions are a [hit]. Don't [rotate] it and define [max distance]
+        groundRay = Physics.BoxCast(transform.position, Vector3.one*boxLength * .5f - Vector3.up * boxLength * .5f, Vector3.down, out RaycastHit hit, Quaternion.identity, groundRaycastLength) ? hit.collider.tag == groundTag : false;
+
+        //groundRay = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundRaycastLength) ? hit.collider.tag == groundTag : false;
 
         grounded = groundRay && groundCollision;
 
@@ -49,13 +58,30 @@ public class PlayerController : MonoBehaviour
 
         jumpInput = Input.GetKey(jumpKey);
     }
+    private void OnDrawGizmosSelected()
+    {
+        // Visualisation of the BoxCast
+        Gizmos.DrawWireCube(transform.position + Vector3.down * groundRaycastLength * .5f, Vector3.one * boxLength + (Vector3.up * (groundRaycastLength - boxLength)));
+        
+    }
 
     private void FixedUpdate()
     {
         if (moveInput && !Physics.Raycast(transform.position, new Vector3(Mathf.Round(Input.GetAxis("Horizontal")), 0, 0), 1))
             Move();
 
-        if (grounded && canJump && jumpInput)
+        if (grounded && canJump)
+        {
+            canCoyoteJump = true;
+            coyoteJumpTimer = coyoteJumpTime;
+        }
+        else if (canCoyoteJump)
+        {
+            coyoteJumpTimer -= Time.fixedDeltaTime;
+            if (coyoteJumpTimer <= 0) canCoyoteJump = false;
+        }
+
+        if (((grounded && canJump) || canCoyoteJump) && jumpInput)
             StartCoroutine(Jump());
     }
 
@@ -76,6 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         jumpInput = false;
         canJump = false;
+        canCoyoteJump = false;
         rb.AddForce(Vector3.up * jumpSpeed * jumpMultiplier, ForceMode.Impulse);
 
         yield return new WaitForSeconds(jumpCooldown);
