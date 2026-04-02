@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -39,16 +40,42 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteJumpTimer;
     [SerializeField] private bool canCoyoteJump;
     [SerializeField] private bool snapierMovement = false;
+    private Dictionary<PowerUp, float> powerUpCooldowns = new();
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        powerUpCooldowns.Add(PowerUp.Movement, 0f);
+        powerUpCooldowns.Add(PowerUp.Jump, 0f);
     }
 
     private void Update()
     {
+        foreach (PowerUp powerUp in new List<PowerUp>(powerUpCooldowns.Keys))
+        {
+            if (powerUpCooldowns[powerUp] > 0)
+            {
+                powerUpCooldowns[powerUp] -= Time.deltaTime;
+            }
+            else
+            {
+                powerUpCooldowns[powerUp] = 0f;
+
+                switch (powerUp)
+                {
+                    case PowerUp.Movement:
+                        movementMultiplier = 1;
+                        break;
+                    case PowerUp.Jump:
+                        jumpMultiplier = 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         // Create a box at [position], edge distance from center as [size] and pick a direction. Move box to that direction, and any new collisions are a [hit]. Don't [rotate] it and define [max distance]
-        groundRay = Physics.BoxCast(transform.position, Vector3.one*boxLength * .5f - Vector3.up * boxLength * .45f, Vector3.down, out RaycastHit hit, Quaternion.identity, groundRaycastLength) ? hit.collider.tag == groundTag : false;
+        groundRay = Physics.BoxCast(transform.position, Vector3.one * boxLength * .5f - Vector3.up * boxLength * .45f, Vector3.down, out RaycastHit hit, Quaternion.identity, groundRaycastLength) ? hit.collider.tag == groundTag : false;
 
         /*if (Physics.BoxCast(transform.position, Vector3.one * boxLength * .5f - Vector3.up * boxLength * .45f, Vector3.down, out RaycastHit twohit, Quaternion.identity, groundRaycastLength))
         {
@@ -67,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         // Visualisation of the BoxCast
         Gizmos.DrawWireCube(transform.position + Vector3.down * groundRaycastLength * .5f, Vector3.one * boxLength + (Vector3.up * (groundRaycastLength - boxLength)));
-        
+
     }
 
     private void FixedUpdate()
@@ -129,23 +156,14 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(ResetAfter(powerUp, cooldown));
+        powerUpCooldowns[powerUp] = cooldown;
     }
 
-    private IEnumerator ResetAfter(PowerUp powerUp, float cooldown)
+    public void resetPowerUps()
     {
-        yield return new WaitForSeconds(cooldown);
-
-        switch (powerUp)
+        foreach (PowerUp powerUp in new List<PowerUp>(powerUpCooldowns.Keys))
         {
-            case PowerUp.Movement:
-                movementMultiplier = 1;
-                break;
-            case PowerUp.Jump:
-                jumpMultiplier = 1;
-                break;
-            default:
-                break;
+            powerUpCooldowns[powerUp] = 0f;
         }
     }
 

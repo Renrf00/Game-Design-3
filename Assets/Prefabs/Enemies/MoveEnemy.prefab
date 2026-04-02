@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoveEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7545742885064666226, guid: b07e5edadc710a64babe359c92b4585d, type: 3}
+      propertyPath: spawnOnDeath
+      value: 
+      objectReference: {fileID: 9084498681087293357, guid: d8405b1418cde4800a42b1c2c5ccd093, type: 3}
     - target: {fileID: 7926007011966691179, guid: b07e5edadc710a64babe359c92b4585d, type: 3}
       propertyPath: m_IsActive
       value: 0

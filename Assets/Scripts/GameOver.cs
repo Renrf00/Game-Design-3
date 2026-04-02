@@ -18,6 +18,7 @@ public class GameOver : MonoBehaviour
 
     [SerializeField]
     private GameObject restartButton;
+    [SerializeField] private bool autoRestart = true;
 
     public static GameOver Instance;
 
@@ -57,6 +58,11 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator HandleFadeOut()
     {
+        if (autoRestart)
+        {
+            Restart();
+            yield return null;
+        }
 
         fadeImage.gameObject.SetActive(true); // Enable the image before fading
 

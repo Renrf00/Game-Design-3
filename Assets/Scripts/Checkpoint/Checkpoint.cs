@@ -11,6 +11,8 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.tag.ToLower() == "player")
         {
+            other.GetComponent<PlayerController>().resetPowerUps();
+
             if (CheckpointManager.Instance.SetCheckpoint(this))
             {
                 GetComponentInChildren<MeshRenderer>().material = gotCheckpointMaterial;

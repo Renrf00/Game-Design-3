@@ -4,7 +4,7 @@ public class PowerUpCollectable : MonoBehaviour
 {
     [SerializeField] private PlayerController.PowerUp powerUpType = PlayerController.PowerUp.Movement;
     [SerializeField] private float multilpierAmount = 0;
-    [SerializeField] private float cooldown = 10;
+    [SerializeField] private int cooldown = 10;
 
     void OnTriggerEnter(Collider other)
     {

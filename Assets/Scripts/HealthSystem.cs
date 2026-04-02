@@ -1,5 +1,7 @@
 using System.Collections;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,11 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private bool gameOverOnDeath;
     [SerializeField] private bool isFriendly;
     [SerializeField] private int maxHealth;
+
+    [Header("Respawing Enemies")]
+    [Tooltip("Only for enemies, if true the enemy will respawn after specified time")]
+    [SerializeField] private bool respawn;
+    [SerializeField] private float respawnTime;
 
     [Tooltip("What, if anything, should this object spawn upon death?")]
     [SerializeField] private GameObject spawnOnDeath;
@@ -25,6 +32,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private Slider healthSlider;
 
     [SerializeField] private int currentHealth;
+    [SerializeField] private GameObject enemyHitbox;
     [SerializeField] private Material damagedMaterial;
     [SerializeField] private float blinkDuration;
 
@@ -48,9 +56,10 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator DamagedBlink(float duration)
     {
+        MeshRenderer meshRenderer = enemyHitbox == null ? GetComponent<MeshRenderer>() : enemyHitbox.GetComponent<MeshRenderer>();
+
         Debug.Log("damaged!!");
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        Material baseMaterial = GetComponent<MeshRenderer>().material;
+        Material baseMaterial = meshRenderer.material;
 
         meshRenderer.material = damagedMaterial;
 
@@ -62,8 +71,11 @@ public class HealthSystem : MonoBehaviour
     {
         for (int i = 0; i < movedByDotween.Length; i++)
         {
-            // If any DOTween movement is still happening, kill it (to prevent possible memory leaks)
-            movedByDotween[i].DOKill();
+            if (!respawn)
+            {
+                // If any DOTween movement is still happening, kill it (to prevent possible memory leaks)
+                movedByDotween[i].DOKill();
+            }
         }
         if (healthSlider != null)
         {
@@ -86,7 +98,23 @@ public class HealthSystem : MonoBehaviour
             return;
         }
 
-        Destroy(gameObject);
+        if (respawn)
+        {
+            StartCoroutine(RespawnAfter(respawnTime));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator RespawnAfter(float duration)
+    {
+        enemyHitbox.GetComponent<Collider>().enabled = false;
+        enemyHitbox.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(duration);
+        enemyHitbox.GetComponent<Collider>().enabled = true;
+        enemyHitbox.GetComponent<MeshRenderer>().enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)

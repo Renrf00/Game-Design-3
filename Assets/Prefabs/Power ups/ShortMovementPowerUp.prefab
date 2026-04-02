@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &446926815741847756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1164722684055354190, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0da7eda11337a4cff8a3df398f3877e3, type: 2}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900669287594570811, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246962195901980294, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246962195901980294, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: multilpierAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656291188658528097, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}
+      propertyPath: m_Name
+      value: MovementPowerUp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63a59a6c8b4c04c2bacf18b722a3f95e, type: 3}

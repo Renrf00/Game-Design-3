@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 7545742885064666226, guid: b07e5edadc710a64babe359c92b4585d, type: 3}
       propertyPath: spawnOnDeath
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7963491940041999995, guid: 8ace3feb4ede04717bb8c4394a5606d3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

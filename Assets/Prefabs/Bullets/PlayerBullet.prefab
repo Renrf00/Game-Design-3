@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2114518735835953529, guid: 82326e238b5b9e541beac1d2a600ddc7, type: 3}
       propertyPath: moveDuration
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2114518735835953529, guid: 82326e238b5b9e541beac1d2a600ddc7, type: 3}
       propertyPath: destroyOnCompletion
