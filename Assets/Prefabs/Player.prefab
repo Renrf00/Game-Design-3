@@ -159,7 +159,7 @@ MonoBehaviour:
   jumpSpeed: 7
   jumpMultiplier: 1
   jumpCooldown: 0.1
-  coyoteJumpTime: 0
+  coyoteJumpTime: 0.1
   jumpKey: 32
   groundTag: Untagged
   boxLength: 0.51
@@ -193,7 +193,7 @@ MonoBehaviour:
   healthMoveDuration: 0.5
   healthSlider: {fileID: 0}
   currentHealth: 0
-  enemyMeshRenderer: {fileID: 3411221483255563904}
+  enemyHitbox: {fileID: 0}
   damagedMaterial: {fileID: 2100000, guid: e930fbcf647e7416fafe8a23c880fd45, type: 2}
   blinkDuration: 0.2
 --- !u!114 &6404484836917006227

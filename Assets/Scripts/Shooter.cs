@@ -50,7 +50,7 @@ public class Shooter : MonoBehaviour
     {
         if (!fixedShootDirection)
         {
-            shootDirection = Mathf.RoundToInt(Mathf.Sign(bulletSpawnPos.position.x - lastXPos));
+            shootDirection = Mathf.RoundToInt(Mathf.Sign(bulletSpawnPos.position.x - lastXPos + 0.001f * shootDirection));
             lastXPos = bulletSpawnPos.position.x;
         }
     }
