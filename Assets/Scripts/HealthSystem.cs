@@ -110,11 +110,14 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator RespawnAfter(float duration)
     {
+        bool hasShooter = GetComponent<Shooter>().isActiveAndEnabled;
         enemyHitbox.GetComponent<Collider>().enabled = false;
         enemyHitbox.GetComponent<MeshRenderer>().enabled = false;
+        if (hasShooter) GetComponent<Shooter>().enabled = false;
         yield return new WaitForSeconds(duration);
         enemyHitbox.GetComponent<Collider>().enabled = true;
         enemyHitbox.GetComponent<MeshRenderer>().enabled = true;
+        if (hasShooter) GetComponent<Shooter>().enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
